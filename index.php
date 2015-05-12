@@ -200,7 +200,7 @@ endif;
 		$isAjax = true;
 		include("view.php");
 	}else{
-		print_r($item);
+		echo "<pre>";print_r($item);echo "</pre>";
 	}
 ?>
 	</div>
