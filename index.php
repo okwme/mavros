@@ -167,6 +167,8 @@ $slug = "mavros";
 <div class="content">
 	<div class="menuNav">
 		<?php
+		print_r($items);
+		die();
 		//$item->contents = $item->channels;
 		$items = new ArrayObject($item->contents);
 		foreach($items as $i):
