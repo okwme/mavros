@@ -71,7 +71,7 @@ endif;
 				echo "<img class='blockImage' src='".$i->image->large->url."'>";
 			break;
 			case("Channel"):
-				echo "<a class='channelLink' href='/view/".$i->slug."'>".$i->title."</a>";
+				echo "<a class='channelLink' href='".$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]."view/".$i->slug."'>".$i->title."</a>";
 			break;
 			default:
 				echo "<pre>";print_r($i);echo"</pre>";
