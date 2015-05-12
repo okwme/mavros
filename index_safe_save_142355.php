@@ -1,7 +1,5 @@
 <?php
-ini_set('display_errors', 1);
 ini_set('error_reporting', E_ALL);
-
 
 $time = microtime();
 $time = explode(' ', $time);
@@ -43,14 +41,16 @@ $slug = "mavros";
 	$token = file_get_contents("token");
 	if(!isset($item)):
 		if (function_exists("curl_version")):
-
+			echo "exists";
+		print_r($loadPath);
 		    $curl = curl_init();
 		    curl_setopt($curl, CURLOPT_URL, $loadPath);
 		    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 		    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer '.$token));
 
 		    $raw = curl_exec($curl);
-		   // $info = curl_getinfo($curl);
+		    $info = curl_getinfo($ch)
+		    print_r($info);
 
 		    curl_close($curl);
 		elseif (file_get_contents(__FILE__) && ini_get("allow_url_fopen")):
@@ -61,11 +61,12 @@ $slug = "mavros";
 		endif;
 		$item = json_decode($raw);
 	else:
-		//echo "item is set";
+		echo "item is set";
 	endif;
 
-	//echo"<pre>";print_r($item);echo"</pre>";
+	echo"<pre>";print_r($item);echo"</pre>";
 
+	die();
 //$credits = $arena->get_block($credits_id);
 ?>
 <!DOCTYPE html>
@@ -175,9 +176,10 @@ $slug = "mavros";
 <div class="content">
 	<div class="menuNav">
 		<?php
+echo "?";
 		//$item->contents = $item->channels;
-if($item):
 		$items = new ArrayObject($item->contents);
+		die("??");
 		foreach($items as $i):
 			if($i->class == "Channel"):
 				echo "<a class='channelLink menuLink' href='http://".$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]."/view/".$i->slug."'>".$i->title."</a>";
@@ -189,7 +191,6 @@ if($item):
 				endforeach;
 			endif;
 		endforeach;	
-endif;
 ?>
 	</div>	
 	<div class="body">
@@ -207,7 +208,7 @@ endif;
 
   </body>
 
-	<script src="http://<? echo $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]; ?>jquery-1.9.0.min.js"></script>
+	<script src="http://<?= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"] ?>jquery-1.9.0.min.js"></script>
 	
 <script>
 
