@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL & ~E_NOTICE);
+
 $time = microtime();
 $time = explode(' ', $time);
 $time = $time[1] + $time[0];
