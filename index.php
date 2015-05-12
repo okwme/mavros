@@ -76,6 +76,7 @@ $slug = "mavros";
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<script src="http://<? echo $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]; ?>jquery-1.9.0.min.js"></script>
 
 	<style>
 		*, html, body{
@@ -170,7 +171,7 @@ $slug = "mavros";
 
 	
 <div class="menu">	
-	<a class="menuTitle" id="header" href="/">Mavros</a>	
+	<a class="menuTitle" id="header" href="http://<? echo $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];?>">Mavros</a>	
 </div>
 <div class="content">
 	<div class="menuNav">
@@ -207,7 +208,6 @@ endif;
 
   </body>
 
-	<script src="http://<? echo $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]; ?>jquery-1.9.0.min.js"></script>
 	
 <script>
 
