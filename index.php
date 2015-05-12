@@ -169,11 +169,11 @@ $slug = "mavros";
 		$items = new ArrayObject($item->contents);
 		foreach($items as $i):
 			if($i->class == "Channel"):
-				echo "<a class='channelLink menuLink' href='/view/".$i->slug."'>".$i->title."</a>";
+				echo "<a class='channelLink menuLink' href='http://".$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]."/view/".$i->slug."'>".$i->title."</a>";
 				$subItems = new ArrayObject($i->contents);
 				foreach($subItems as $ii):
 					if($ii->class == "Channel"):
-						echo "<a class='channelLink menuLink subLink' href='/view/".$ii->slug."'>".$ii->title."</a>";
+						echo "<a class='channelLink menuLink subLink' href='http://".$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]."/view/".$ii->slug."'>".$ii->title."</a>";
 					endif;
 				endforeach;
 			endif;
@@ -195,7 +195,7 @@ $slug = "mavros";
 
   </body>
 
-	<script src="/jquery-1.9.0.min.js"></script>
+	<script src="http://<?= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"] ?>jquery-1.9.0.min.js"></script>
 	
 <script>
 
