@@ -167,9 +167,10 @@ $slug = "mavros";
 <div class="content">
 	<div class="menuNav">
 		<?php
-
+echo "?";
 		//$item->contents = $item->channels;
 		$items = new ArrayObject($item->contents);
+		die("??");
 		foreach($items as $i):
 			if($i->class == "Channel"):
 				echo "<a class='channelLink menuLink' href='http://".$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]."/view/".$i->slug."'>".$i->title."</a>";
