@@ -10,7 +10,7 @@ $start = $time;
 	ob_start();
 	//print_r($_SERVER);
 	$cachefile = "cache/".basename($_SERVER['SCRIPT_NAME']);
-	$cachetime = 2 * 60 * 60; // 2 hours
+	$cachetime = 0;//2 * 60 * 60; // 2 hours
 
 
 	if ($_SERVER['QUERY_STRING']!='') {
@@ -36,7 +36,7 @@ $start = $time;
 
 
 
-$slug = "mavros";
+$slug = "mavra";
 
 	
 	$loadPath = "http://api.are.na/v2/channels/$slug";
@@ -77,30 +77,48 @@ $slug = "mavros";
 	<meta name="description" content="">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<script src="http://<? echo $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]; ?>jquery-1.9.0.min.js"></script>
+<?
+if($item):
+		$items = new ArrayObject($item->contents);
+		foreach($items as $i):
+			if($i->class == "Text"):
+					$foo = explode(",", $i->content);
+					$first = isset($foo[0]) ? $foo[0] : "white";
+					$second = isset($foo[1]) ? $foo[1] : "white";
+					$third = isset($foo[2]) ? $foo[2] : "white";
+					$fourth = isset($foo[3]) ? $foo[3] : "white";
 
+				break;
+			endif;
+		endforeach;
+	endif;
+?>
 	<style>
 		*, html, body{
 			padding:0;
 			margin:0;
-			font-family:arial, sans-serif;
+			font-family:"Futura", Futura, arial, sans-serif;
 			-webkit-box-sizing: border-box;
 			-moz-box-sizing: border-box;
 			box-sizing: border-box;
 			word-wrap:break-word;
 		}
 		body{
-			background-color:yellow;
+			background-color:<? echo $first;?>;
 		}
 		a, a:hover, a:active, a:visited{
 			color:black;
 			text-decoration:none;
 		}
+		 a:hover{
+			text-decoration:underline;
+		 }
 		.menu{
 			z-index:2;
 			position:fixed;
 			top:0px;
 			left:0px;
-			background-color:green;
+			background-color:<? echo $second;?>;
 			padding:25px;
 		}
 		.menu a{
@@ -110,16 +128,16 @@ $slug = "mavros";
 		.content{
 			width:100%;
 			overflow:hidden;
-			background-color:yellow;
+			background-color:<? echo $first;?>;
 		}
 		.menuNav{
 			padding:25px;
 			position:fixed;
-			background-color:blue;
+			background-color: <? echo $third;?>;
 			float:left;
 			width:100%;
 			margin-left:-100%;
-			padding-top:100px;
+			padding-top:150px;
 			-webkit-transition: all 1s ease-in-out;
 			-moz-transition: all 1s ease-in-out;
 			-o-transition: all 1s ease-in-out;
@@ -135,10 +153,10 @@ $slug = "mavros";
 			margin-left:0;
 		}
 		.body{
-			background-color:pink;
+			background-color: <? echo $fourth;?>;
 			float:left;
 			padding:25px;
-			padding-top:100px;
+			padding-top:150px;
 			margin-left:0%;
 			width:100%;
 			-webkit-transition: all 1s ease-in-out;
@@ -154,6 +172,10 @@ $slug = "mavros";
 			margin:100px auto;
 			max-width:768px;
 		}
+		.block * {
+			margin:auto;
+			display:block;
+		}
 		.blockImage{
 			max-width:100%;
 			margin:auto;
@@ -163,6 +185,9 @@ $slug = "mavros";
 			.block{
 				margin:10px;
 			}
+			.menu{
+				position:absolute;
+			}
 		}
 	</style>
   </head>
@@ -171,32 +196,51 @@ $slug = "mavros";
 
 	
 <div class="menu">	
-	<a class="menuTitle" id="header" href="http://<? echo $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];?>">Mavros</a>	
+	<a class="menuTitle" id="header" href="http://<? echo $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];?>"><?
+	//if(isset($items->contents->))
+	if($item):
+		$items = new ArrayObject($item->contents);
+		foreach($items as $i):
+			if($i->class == "Image"):
+				echo "<img src='".$i->image->original->url."'>";
+				break;
+			endif;
+		endforeach;
+	endif;
+	?></a>	
 </div>
 <div class="content">
 	<div class="menuNav">
 		<?php
-		//$item->contents = $item->channels;
-if($item):
+		//echo "<pre>"; print_r($item); echo "</pre>";// = $item->channels;
+	if($item):
 		$items = new ArrayObject($item->contents);
+
 		foreach($items as $i):
-			if($i->class == "Channel"):
-				echo "<a class='channelLink menuLink' href='http://".$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]."/view/".$i->slug."'>".$i->title."</a>";
-				$subItems = new ArrayObject($i->contents);
-				foreach($subItems as $ii):
-					if($ii->class == "Channel"):
-						echo "<a class='channelLink menuLink subLink' href='http://".$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]."/view/".$ii->slug."'>".$ii->title."</a>";
-					endif;
-				endforeach;
-			endif;
+			switch($i->class){
+				case("Channel"):
+					//echo "<a class='channelLink menuLink' href='http://".$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]."/view/".$i->slug."'>".$i->title."</a>";
+					$subItems = new ArrayObject($i->contents);
+					foreach($subItems as $ii):
+						if($ii->class == "Channel"):
+							$id = isset($id) ? $id : $ii->slug;
+							//echo $id;
+							echo "<a class='channelLink menuLink subLink' href='http://".$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]."/view/".$ii->slug."'>".$ii->title."</a>";
+						endif;
+					endforeach;
+				break;
+				default:
+			}
 		endforeach;	
-endif;
+	endif;
 ?>
 	</div>	
 	<div class="body">
 	<?//echo"<pre>";print_r($item);echo"</pre>";?>
 	<?
 	if(isset($id)){
+		//echo $id;
+		unset($item);
 		$isAjax = true;
 		include("view.php");
 	}else{
