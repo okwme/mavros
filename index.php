@@ -10,7 +10,7 @@ $start = $time;
 	ob_start();
 	//print_r($_SERVER);
 	$cachefile = "cache/".basename($_SERVER['SCRIPT_NAME']);
-	$cachetime = 0;//2 * 60 * 60; // 2 hours
+	$cachetime = (0.2) * 60 * 60; // 2 hours
 
 
 	if ($_SERVER['QUERY_STRING']!='') {
