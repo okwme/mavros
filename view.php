@@ -6,6 +6,7 @@ if(!isset($isAjax) && !(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower(
 	exit;
 }else{
 	//echo "is ajax";
+
 }
 
 $id = isset($id) ? $id : $_GET["id"];
@@ -16,7 +17,7 @@ $start = $time;
 	//ob_start();
 	//print_r($_SERVER);
 	$cachefile = "cache/view-".$id.".txt";
-	$cachetime = (0.2) * 60 * 60; // 2 hours
+	$cachetime = 99999999999999;//(0.2) * 60 * 60; // 2 hours
 
 
 
@@ -39,6 +40,7 @@ $start = $time;
 $loadPath = "http://api.are.na/v2/channels/$id";
 //echo $loadPath;
 	$token = file_get_contents("token");
+
 if(!isset($item)):
 	if (function_exists("curl_version")):
 	    $curl = curl_init();
@@ -58,30 +60,35 @@ if(!isset($item)):
 endif;
 //$pr
 	//echo"<pre>";print_r($item);echo"</pre>";
-	echo "<h1>".$item->title."</h1>";
+	echo "<span class='titleFont'>".$item->title."</span>";
 	foreach($item->contents as $i):
 		echo "<div class='block'>";
 		//			echo "<pre>";print_r($i);echo"</pre>";
 
 		switch($i->class){
 			case("Text"):
-				echo "<h2 class='blockTitle'>".$i->title."</h2>";
+				echo "<div class='subtitleFont blockTitle'>".$i->title."</div>";
 				echo "<div class='blockText'>".$i->content_html."</div>";
 			break;
 			case("Image"):
-				echo "<h2 class='blockTitle'>".$i->title."</h2>";
-				echo "<img class='blockImage' src='".$i->image->large->url."'>";
+				//echo "<h2 class='blockTitle'>".$i->title."</h2>";
+				//echo"<pre>";print_r($i);echo "</pre>";
+				echo "<img class='blockImage' src='".$i->image->original->url."'>";
+				echo "<div class='blockText'>".$i->description_html."</div>";
+
 			break;
 			case("Channel"):
 				echo "<a class='channelLink' href='view/".$i->slug."'>".$i->title."</a>";
 			break;
 			case("Media"):
-				echo "<h2 class='blockTitle'>".$i->title."</h2>";
+				echo "<div class='subtitleFont blockTitle'>".$i->title."</div>";
 				//echo "<pre>";print_r($i);echo"</pre>";
+				echo "<div class='blockMedia'>";
 				echo $i->embed->html;
+				echo "</div>";
 			break;
 			case("Link"):
-				echo "<h2 class='blockTitle'>".$i->title."</h2>";
+				echo "<div class='blockTitle subtitleFont'>".$i->title."</div>";
 				//echo "<pre>";print_r($i);echo"</pre>";
 				echo "<a class='channelLink' href='".$i->source->url."'><img src='".$i->image->display->url."'></a>";
 			break;

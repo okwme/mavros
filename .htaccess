@@ -5,3 +5,4 @@ RewriteCond %{SCRIPT_FILENAME} !-d
 RewriteCond %{SCRIPT_FILENAME} !-f
  
 RewriteRule ^view/(.*)$ ./view.php?id=$1
+RewriteRule ^info/?$ ./info.php 
