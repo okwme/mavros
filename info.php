@@ -34,7 +34,7 @@ D- 10961 Berlin<br>
 Thursday to Saturday<br>
 3 - 6pm<br>
 <br>
-<a href="mailto:info@mavra.info">info@mavra.info</a><br>
+<a href="mailto:mail@mavra.info">mail@mavra.info</a><br>
 <br>
 <table style="width:280px;">
 <tr>

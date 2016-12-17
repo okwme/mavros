@@ -17,7 +17,7 @@ $start = $time;
 	//ob_start();
 	//print_r($_SERVER);
 	$cachefile = "cache/view-".$id.".txt";
-	$cachetime = 99999999999999;//(0.2) * 60 * 60; // 2 hours
+	$cachetime = (0.2) * 60 * 60; // 2 hours
 
 
 
