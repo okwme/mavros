@@ -320,7 +320,7 @@ content: "";
 		}
 		.blockText p {
 			margin-bottom:1rem;
-			display:inline-block;
+			//display:inline-block;
 		}
 
 		@media only screen and (min-width:1025px) {
